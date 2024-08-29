@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  helpers:
+    submit:
+      user_registration_form:
+        create: "Create User"
+        update: "Update User"
