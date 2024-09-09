@@ -1,4 +1,5 @@
-<%= form_with(model: name) do |form| %>
+<% form_with_options = name.user.persisted? ? {url: name_path(name.user), method: :patch} : {url: names_path, method: :post} %>
+<%= form_with(model: name, **form_with_options) do |form| %>
   <% if name.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(name.errors.count, "error") %> prohibited this name from being saved:</h2>

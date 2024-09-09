@@ -1,31 +1,24 @@
 class NamesController < ApplicationController
-  before_action :set_name, only: %i[ show edit update destroy ]
-
-  # GET /names
-  def index
-    @names = Name.all
-  end
-
-  # GET /names/1
-  def show
-  end
-
   # GET /names/new
   def new
-    @name = Name.new
+    @name = UserNameForm.new
+    @name.user = User.new
   end
 
   # GET /names/1/edit
   def edit
+    @name = UserNameForm.new
+    @name.user = User.find(params[:id])
   end
 
   # POST /names
   def create
-    @name = Name.new(name_params)
+    @name = UserNameForm.new(name_params)
+    @name.user = User.new
 
     respond_to do |format|
       if @name.save
-        format.html { redirect_to name_url(@name), notice: "Name was successfully created." }
+        format.html { redirect_to user_url(@name.user), notice: "User was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -34,32 +27,22 @@ class NamesController < ApplicationController
 
   # PATCH/PUT /names/1
   def update
+    @name = UserNameForm.new
+    @name.user = User.find(params[:id])
+    @name.assign_attributes(name_params)
+
     respond_to do |format|
-      if @name.update(name_params)
-        format.html { redirect_to name_url(@name), notice: "Name was successfully updated." }
+      if @name.save
+        format.html { redirect_to user_url(@name.user), notice: "User was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /names/1
-  def destroy
-    @name.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to names_url, notice: "Name was successfully destroyed." }
-    end
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_name
-      @name = Name.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def name_params
-      params.require(:name).permit(:name)
-    end
+  def name_params
+    params.require(:user_name_form).permit(:name)
+  end
 end
