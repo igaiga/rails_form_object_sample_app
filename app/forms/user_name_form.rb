@@ -10,14 +10,16 @@ class UserNameForm
   validates :name, presence: true
 
   # DB保存などの機能を委譲するためにUserモデルをセット可能に
-  def user=(u)
-    @user = u
-    set_attributes
-  end
-
   # redirect_to @user のときなどUserモデルを取りたいので取得もできるようにする
-  def user
-    @user
+  attr_accessor :user
+
+  def initialize(model: nil, **attrs)
+    attrs.symbolize_keys!
+    if model
+      @user = model
+      attrs = {name: @user.name}.merge(attrs)
+    end
+    super(**attrs)
   end
 
   def save(...) # ... は全引数を引き渡す記法
@@ -54,9 +56,7 @@ class UserNameForm
 end
 
 # つかい方の例:
-# uf = UserNameForm.new
-# uf.user = User.new
-# uf.assign_attributes(name: "iga")
+# uf = UserNameForm.new(model: User.new, name: "iga")
 # if uf.save
 #   # 成功時の処理
 # else

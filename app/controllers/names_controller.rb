@@ -1,21 +1,17 @@
 class NamesController < ApplicationController
   # GET /names/new
   def new
-    @name = UserNameForm.new
-    @name.user = User.new
+    @name = UserNameForm.new(model: User.new)
   end
 
   # GET /names/1/edit
   def edit
-    @name = UserNameForm.new
-    @name.user = User.find(params[:id])
+    @name = UserNameForm.new(model: User.find(params[:id]))
   end
 
   # POST /names
   def create
-    @name = UserNameForm.new
-    @name.user = User.new
-    @name.assign_attributes(name_params)
+    @name = UserNameForm.new(model: User.new, **name_params)
 
     respond_to do |format|
       if @name.save
@@ -28,9 +24,7 @@ class NamesController < ApplicationController
 
   # PATCH/PUT /names/1
   def update
-    @name = UserNameForm.new
-    @name.user = User.find(params[:id])
-    @name.assign_attributes(name_params)
+    @name = UserNameForm.new(model: User.find(params[:id]), **name_params)
 
     respond_to do |format|
       if @name.save
