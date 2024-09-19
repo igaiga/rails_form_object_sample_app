@@ -24,12 +24,12 @@ class UserNameForm
 
   def save(...) # ... は全引数を引き渡す記法
     transfer_attributes
-    user.save(...) if valid?
-  end
-
-  def save!(...)
-    transfer_attributes
-    user.save!(...) if valid?
+    if valid?
+      user.save(...)
+    else
+      false # モデルのsave失敗時の戻り値に揃える
+    end
+    # valid? || user.save(...) # 短く書いても良い
   end
 
   def form_with_options
