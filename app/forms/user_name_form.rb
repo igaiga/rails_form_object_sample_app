@@ -44,11 +44,6 @@ class UserNameForm
 
   private
 
-  # FormObjectにモデルからattributesをセット
-  def set_attributes
-    self.name = user.name
-  end
-
   # FormObjectからモデルへattributesをセット
   def transfer_attributes
     user.name = name
