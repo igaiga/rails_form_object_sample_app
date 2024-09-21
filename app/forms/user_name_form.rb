@@ -1,12 +1,12 @@
 class UserNameForm
-  include ActiveModel::Model
-  # バリデーション機能, form_withに渡せる機能,
-  # new(name: "xxx", ...)のようにattributesとあわせて初期化する機能などを足す
-
   include ActiveModel::Attributes # 型を持つattributesをかんたんに定義できるようにする
   attribute :name, :string
 
-  # このFormObject用のバリデーション
+  include ActiveModel::Model
+  # バリデーション機能、form_withに渡せる機能、
+  # new(name: "xxx", ...)のようにattributesとあわせて初期化する機能などを足す
+
+  # このFormObjectのバリデーション
   validates :name, presence: true
 
   # DB保存などの機能を委譲するためにUserモデルをセット可能に
