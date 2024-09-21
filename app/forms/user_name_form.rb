@@ -1,33 +1,34 @@
 class UserNameForm
   include ActiveModel::Model
-  # バリデーション機能, form_withに渡せる機能,
+  # バリデーション機能、form_withに渡せる機能、
   # new(name: "xxx", ...)のようにattributesとあわせて初期化する機能などを足す
-
   include ActiveModel::Attributes # 型を持つattributesをかんたんに定義できるようにする
+
   attribute :name, :string
 
-  # このFormObject用のバリデーション
+  # このフォームオブジェクトのバリデーション
   validates :name, presence: true
 
   # DB保存などの機能を委譲するためにUserモデルをセット可能に
   # redirect_to @user のときなどUserモデルを取りたいので取得もできるようにする
   attr_accessor :user
 
-  def initialize(model: nil, **attrs)
-    attrs.symbolize_keys!
+  def initialize(model: nil, **attrs) # `**`はキーワード引数をHashで受け取る文法
+    attrs.symbolize_keys! # StringとSymbolの両対応
     if model
       @user = model
-      attrs = {name: @user.name}.merge(attrs)
+      attrs = {name: @user.name}.merge(attrs) # attrsがあれば優先
     end
-    super(**attrs)
+    super(**attrs) # もともとのinitializeメソッドを呼び出し
+    # `**`はHashをキーワード引数で渡す文法
   end
 
   def save(...) # ... は全引数を引き渡す記法
     transfer_attributes
     if valid?
-      user.save(...)
+      user.save(...)  # モデルのsaveメソッドへ委譲
     else
-      false # モデルのsave失敗時の戻り値に揃える
+      false # これがないとvalid?失敗時にnilが返る
     end
     # valid? || user.save(...) # 短く書いても良い
   end
@@ -44,7 +45,7 @@ class UserNameForm
 
   private
 
-  # FormObjectからモデルへattributesをセット
+  # フォームオブジェクトからモデルへattributesをセット
   def transfer_attributes
     user.name = name
   end
