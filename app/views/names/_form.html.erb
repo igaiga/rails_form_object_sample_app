@@ -1,10 +1,10 @@
-<%= form_with(model: name, **name.form_with_options) do |form| %>
-  <% if name.errors.any? %>
+<%= form_with(model: user_name_form, **user_name_form.form_with_options) do |form| %>
+  <% if user_name_form.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(name.errors.count, "error") %> prohibited this name from being saved:</h2>
+      <h2><%= pluralize(user_name_form.errors.count, "error") %> prohibited this name from being saved:</h2>
 
       <ul>
-        <% name.errors.each do |error| %>
+        <% user_name_form.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
