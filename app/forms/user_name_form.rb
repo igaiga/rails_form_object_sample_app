@@ -24,8 +24,8 @@ class UserNameForm
   end
 
   def save(...) # ... は全引数を引き渡す記法
-    transfer_attributes
-    if valid?
+    transfer_attributes # フォームオブジェクトからモデルへattributesをセット
+    if valid? # フォームオブジェクトのバリデーション実行
       user.save(...)  # モデルのsaveメソッドへ委譲
     else
       false # これがないとvalid?失敗時にnilが返る
