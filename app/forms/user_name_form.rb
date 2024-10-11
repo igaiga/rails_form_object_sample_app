@@ -30,7 +30,7 @@ class UserNameForm
     else
       false # これがないとvalid?失敗時にnilが返る
     end
-    # valid? || user.save(...) # 短く書いても良い
+    # valid? && user.save(...) # 短く書いても良い
   end
 
   def form_with_options
