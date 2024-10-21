@@ -52,7 +52,7 @@ class UserNameForm
 end
 
 # つかい方の例:
-# uf = UserNameForm.new(model: User.new, name: "iga")
+# uf = UserNameForm.new(model: User.new, name: "いがいが")
 # if uf.save
 #   # 成功時の処理
 # else
