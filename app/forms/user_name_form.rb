@@ -7,7 +7,7 @@ class UserNameForm
   attribute :name, :string
 
   # このフォームオブジェクトのバリデーション
-  validates :name, presence: true
+  validates :name, format: { with: /\A\p{Hiragana}+\z/ }, presence: true
 
   # DB保存などの機能を委譲するためにUserモデルをセット可能に
   # redirect_to @user のときなどUserモデルを取りたいので取得もできるようにする
