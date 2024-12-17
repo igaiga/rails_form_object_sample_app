@@ -1,5 +1,5 @@
 class UserNameForm
-  include ActiveModel::Model
+  include ActiveModel::API
   # バリデーション機能、form_withに渡せる機能、
   # new(name: "xxx", ...)のようにattributesとあわせて初期化する機能などを足す
   include ActiveModel::Attributes # 型を持つattributesをかんたんに定義できるようにする
